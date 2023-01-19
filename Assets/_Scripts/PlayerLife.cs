@@ -20,6 +20,14 @@ public class PlayerLife : MonoBehaviour
             other.gameObject.GetComponent<AudioSource>().Play();
             Debug.Log("death");
             Die();
+        } else if (other.gameObject.CompareTag("Exit"))
+        {
+            other.gameObject.GetComponent<AudioSource>().Play();
+            Debug.Log("should exit");
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #endif
+            Application.Quit();
         }
     }
 

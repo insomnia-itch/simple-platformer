@@ -19,14 +19,21 @@ public class NextLevel : MonoBehaviour
             // finishSound.Play();
             // CompleteLevel();
             // call method with delay
-            Invoke("CompleteLevel", 1.5f);
+            Invoke("CompleteLevel", 0.8f);
             levelCompleted = true;
         }
     }
 
     private void CompleteLevel() {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene( currentSceneIndex + 1);
-        // TODO add game over screne if out of index
+        int nextSceneIndex = currentSceneIndex + 1;
+        int numberOfScenes = SceneManager.sceneCountInBuildSettings;
+
+        //  TOOD probably a better way to do this
+        if (currentSceneIndex == numberOfScenes - 1)
+        {
+         nextSceneIndex = 0;   
+        }
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }
