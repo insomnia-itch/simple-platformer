@@ -7,21 +7,23 @@ public class PlayerLife : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] float respawnTimer = 1.2f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
     }
     
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Death")) {
-            Debug.Log("should die :)");
+            other.gameObject.GetComponent<AudioSource>().Play();
+            Debug.Log("death");
             Die();
         }
     }
 
     void Die() {
-        Debug.Log("Should just freeze player rn");
         rb.bodyType = RigidbodyType2D.Static;
         GetComponent<SpriteRenderer>().enabled = false;
         foreach(Transform child in this.transform) {

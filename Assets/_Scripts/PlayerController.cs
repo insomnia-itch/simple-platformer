@@ -21,11 +21,16 @@ public class PlayerController : MonoBehaviour
     private int extraJumps;
     public int extraJumpValue;
 
+    public AudioSource jumpSound;
+
+
     void Start()
     {
         extraJumps = extraJumpValue;
 
         rb = GetComponent<Rigidbody2D>();
+        // jumpSound = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -56,10 +61,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0)
         {
             rb.velocity = Vector2.up * jumpForce;
+            jumpSound.Play();
             extraJumps--;
         } else if (Input.GetKeyDown(KeyCode.Space) && extraJumps == 0 && isGrounded)
         {
             rb.velocity = Vector2.up * jumpForce;
+            // jumpSound.Play();
         }
     }
 

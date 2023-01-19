@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class LevelExit : MonoBehaviour
+public class NextLevel : MonoBehaviour
 {
     private AudioSource finishSound;
+    private bool levelCompleted = false;
 
     private void Start()
     {
@@ -13,13 +15,18 @@ public class LevelExit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.name == "Player") {
+        if (other.gameObject.name == "Player" && !levelCompleted) {
             // finishSound.Play();
-            completeLevel();
+            // CompleteLevel();
+            // call method with delay
+            Invoke("CompleteLevel", 1.5f);
+            levelCompleted = true;
         }
     }
 
-    private void completeLevel() {
-
+    private void CompleteLevel() {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene( currentSceneIndex + 1);
+        // TODO add game over screne if out of index
     }
 }
